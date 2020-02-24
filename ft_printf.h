@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:09:51 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/02/24 13:08:50 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/02/24 21:17:29 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ typedef struct	s_flags
 	int zero;
 }				t_flags;
 
-void	ft_putchar(va_list args);
-void	ft_puthex(int n);
-void	ft_putHex(int n);
+int		ft_print_c(va_args, int);
+int		ft_print_space(int n, int type);
+void	ft_puthex(unsigned int n);
+void	ft_putHex(unsigned int n);
 void	ft_putnbr(int n);
 void	ft_putunbr(unsigned int n);
 void	ft_putstr(va_list args);
