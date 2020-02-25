@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_space.c                                   :+:      :+:    :+:   */
+/*   ft_print_s.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/24 20:09:03 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/02/25 20:18:55 by cruiz-de         ###   ########.fr       */
+/*   Created: 2020/02/25 18:47:14 by cruiz-de          #+#    #+#             */
+/*   Updated: 2020/02/25 21:14:27 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_space(int n,int type)
+void	ft_print_s(va_list args, t_flags *flags)
 {
-	int i;
-	
-	i = 0;
-	if (type == -1)
-	{
-		while (i < n)
-		{
-			write(1, " ", 1);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < n)
-		{
-			write(1, "0", 1);
-			i++;
-		}
-	}
-	return(i);
+	char *str;
+
+	str = va_arg(args, char *);
+	if (flags->width > 0 && flags->minus == -1)
+		flags->count += ft_printf_space(flags->width - ft_strlen(str), flags->zero);
+	flags->count += write(1, &str[i], 1);
+	if (flags->width > 0 && flags->minus == 1)
+		flags->count += ft_print_space(flags->width - ft_strlen(str), flags->zero );
 }

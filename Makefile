@@ -1,4 +1,4 @@
-SRCS	= ft_printf.c ft_printf_utils.c
+SRCS	= ft_printf.c ft_printf_utils.c ft_print_c.c ft_print_s.c ft_print_space.c
 OBJS	= ${SRCS:.c=.o}
 NAME	= libftprintf.a
 CC		= cc

@@ -6,13 +6,13 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:07:17 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/02/24 12:59:17 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/02/25 19:46:30 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_puthex(int n)
+void	ft_puthex(unsigned n)
 {
 	char	c;
 
@@ -31,7 +31,7 @@ void	ft_puthex(int n)
 	}
 }
 
-void	ft_putHex(int n)
+void	ft_putHex(unsigned int n)
 {
 	char	c;
 
