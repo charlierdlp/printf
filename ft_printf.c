@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/02/25 20:25:45 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/02/27 13:47:44 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 		else if (str[*i] == 'u')
 			ft_putunbr(va_arg(args, unsigned int));
 		else if (str[*i] == 'x')
-			ft_puthex(va_arg(args, int));
+			ft_puthex(va_arg(args, unsigned int));
 		else if (str[*i] == 'X')
 			ft_putHex(va_arg(args, int));
 		else if (str[*i] == '%')
@@ -54,11 +54,16 @@ static void	ft_minus_zero(char *str, int *i, t_flags *flags)
 	}
 }
 
-static void	ft_numbers_and(char *str, int *i, t_flags *flags, va_list args)
+static void	ft_numbers_and_precision(char *str, int *i, t_flags *flags, va_list args)
 {
 	if (str[*i] == '*')
 	{
 		flags->width = va_arg(args, int);
+		if (flags->width < 0)
+		{
+			flags->minus = 1;
+			flags->width = -flags->width;
+		}
 		*i = *i + 1;
 	}
 	if (str[*i] > '0' && str[*i] <= '9')
@@ -67,6 +72,17 @@ static void	ft_numbers_and(char *str, int *i, t_flags *flags, va_list args)
 		while (str[*i] >= '0' && str[*i] <= '9')
 			*i = *i + 1;
 	}
+	if (str[*i] == '.')
+	{
+		flags->precision = 0;
+		flags->zero = -1;
+		*i = *i + 1;
+		if (str[*i] == '*')
+			flags->precision = va_arg(args, int);
+		else
+			flags->precision = ft_atoi(&str[*i]);
+	}
+
 }
 
 int		ft_printf(char *str, ...)
@@ -85,20 +101,22 @@ int		ft_printf(char *str, ...)
 			i++;
 			ft_start_flags(&flags);
 			ft_minus_zero(str, &i, &flags);
-			ft_numbers_and(str, &i, &flags, args);
+			ft_numbers_and_precision(str, &i, &flags, args);
 			ft_print_basic(str, &i, args, &flags);
 		}
 		else
 		{
-			write(1, &str[i], 1);
+			flags.count += write(1, &str[i], 1);
 			i++;
 		}
 	}
 	va_end(args);
 	return (flags.count);
 }
+
 /*
 int main()
 {
-	ft_printf("%5c", 'a');
-}*/
+	ft_printf("%3s", "hola");
+}
+*/
