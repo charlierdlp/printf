@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/02 02:05:31 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/02 07:29:18 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ void	ft_start_flags(t_flags *flags)
 
 void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 {
-		if (str[*i] == 'c')
-			ft_print_c((char)va_arg(args, int), flags);
-		else if (str[*i] == 's')
-			ft_print_s(args, flags);
-		else if (str[*i] == 'd' || str[*i] == 'i')
-			ft_print_d(va_arg(args, int), flags);
-		else if (str[*i] == 'u')
-			ft_putunbr(va_arg(args, unsigned int), flags);
-		else if (str[*i] == 'x')
-			ft_puthex(va_arg(args, unsigned int));
-		else if (str[*i] == 'X')
-			ft_putHex(va_arg(args, int));
-		else if (str[*i] == '%')
-			write(1, "%", 1);
-		*i = *i + 1;
+	if (str[*i] == 'c')
+		ft_print_c((char)va_arg(args, int), flags);
+	else if (str[*i] == 's')
+		ft_print_s(args, flags);
+	else if (str[*i] == 'd' || str[*i] == 'i')
+		ft_print_d(va_arg(args, int), flags);
+	else if (str[*i] == 'u')
+		ft_putunbr(va_arg(args, unsigned int), flags);
+	else if (str[*i] == 'x')
+		ft_puthex(va_arg(args, unsigned int));
+	else if (str[*i] == 'X')
+		ft_putHex(va_arg(args, int));
+	else if (str[*i] == '%')
+		write(1, "%", 1);
+	*i = *i + 1;
 }
 
 static void	ft_minus_zero(char *str, int *i, t_flags *flags)
@@ -86,7 +86,6 @@ static void	ft_numbers_and_precision(char *str, int *i, t_flags *flags, va_list 
 				*i = *i + 1;
 		}
 	}
-
 }
 
 int		ft_printf(char *str, ...)
@@ -119,10 +118,10 @@ int		ft_printf(char *str, ...)
 }
 
 /*
-int main()
-{
-	printf("%10.5d\n", 10);
-	ft_printf("%10.5d", 10);
-}
-*/
+   int main()
+   {
+   printf("%10.5d\n", 10);
+   ft_printf("%10.5d", 10);
+   }
+   */
 
