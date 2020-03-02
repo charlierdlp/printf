@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_printf_extras.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 20:20:04 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/01/29 11:44:28 by cruiz-de         ###   ########.fr       */
+/*   Created: 2020/03/02 05:20:30 by cruiz-de          #+#    #+#             */
+/*   Updated: 2020/03/02 05:44:35 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void    ft_putnbr_fd(int n, int fd)
+int	ft_count(int n)
 {
-    char    tmp;
-    long    nb;
-    
-    nb = n;
-    if (nb < 0)
-    {
-        nb = nb * -1;
-        write(fd, "-", 1);
-    }
-    if (nb > 9)
-        ft_putnbr_fd(nb / 10, fd);
-    tmp = nb % 10 + '0';
-    write(fd, &tmp, 1);
+	int	count;
+
+	count = n < 0 ? 2 : 1;
+	while (n / 10 != 0)
+	{
+		count++;
+		n = n / 10;
+	}
+	return (count);
 }

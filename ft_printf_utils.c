@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:07:17 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/02/25 19:46:30 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/02 00:58:15 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,31 @@ void	ft_putHex(unsigned int n)
 	}
 }
 
-void	ft_putnbr(int n)
+void	ft_putnbr(int n, t_flags *flags)
 {
 	char	tmp;
 	long	nb;
 
 	nb = n;
-	if (nb < 0)
+	if (nb < 0 && flags->zero == -1)
 	{
 		nb = nb * -1;
-		write(1, "-", 1);
+		flags->count += write(1, "-", 1);
 	}
 	if (nb > 9)
-		ft_putnbr(nb / 10);
+		ft_putnbr(nb / 10, flags);
 	tmp = nb % 10 + '0';
-	write(1, &tmp, 1);
+	flags->count += write(1, &tmp, 1);
 }
 
-void	ft_putunbr(unsigned int n)
+void	ft_putunbr(unsigned int n, t_flags *flags)
 {
 	char	tmp;
 
 	if(n > 9)
-		ft_putunbr(n / 10);
+		ft_putunbr(n / 10, flags);
 	tmp = n % 10 + '0';
-	write(1, &tmp, 1);
+	flags->count += write(1, &tmp, 1);
 }
 
 void	ft_putstr(va_list args)

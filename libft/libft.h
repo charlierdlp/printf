@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 19:59:34 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/02/24 19:04:24 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/02 00:31:24 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void				ft_bzero(void *s, size_t n);
 void				ft_putchar(char c);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
-void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);
 void				ft_lstadd_front(t_list **lst, t_list *new);

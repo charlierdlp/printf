@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/02/27 13:47:44 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/02 02:05:31 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 		else if (str[*i] == 's')
 			ft_print_s(args, flags);
 		else if (str[*i] == 'd' || str[*i] == 'i')
-			ft_putnbr(va_arg(args, int));
+			ft_print_d(va_arg(args, int), flags);
 		else if (str[*i] == 'u')
-			ft_putunbr(va_arg(args, unsigned int));
+			ft_putunbr(va_arg(args, unsigned int), flags);
 		else if (str[*i] == 'x')
 			ft_puthex(va_arg(args, unsigned int));
 		else if (str[*i] == 'X')
@@ -80,7 +80,11 @@ static void	ft_numbers_and_precision(char *str, int *i, t_flags *flags, va_list 
 		if (str[*i] == '*')
 			flags->precision = va_arg(args, int);
 		else
+		{
 			flags->precision = ft_atoi(&str[*i]);
+			while (str[*i] >= '0' && str[*i] <= '9')
+				*i = *i + 1;
+		}
 	}
 
 }
@@ -117,6 +121,8 @@ int		ft_printf(char *str, ...)
 /*
 int main()
 {
-	ft_printf("%3s", "hola");
+	printf("%10.5d\n", 10);
+	ft_printf("%10.5d", 10);
 }
 */
+
