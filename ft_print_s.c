@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 18:47:14 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/02 06:04:24 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/02 15:23:31 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	ft_print_s(va_list args, t_flags *flags)
 	}
 	len = ft_strlen(str);
 	if (flags->width > 0 && flags->minus == -1)
-		flags->count += ft_print_space(flags->width - len, flags->zero);
+		flags->count += ft_slots(flags->width - len, flags->zero);
 	flags->count += write(1, str, len);
 	if (flags->width > 0 && flags->minus == 1)
-		flags->count += ft_print_space(flags->width - len, flags->zero);
+		flags->count += ft_slots(flags->width - len, flags->zero);
 	free(str);
 }

@@ -6,19 +6,11 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/02 07:29:18 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:14:26 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	ft_start_flags(t_flags *flags)
-{
-	flags->precision = -1;
-	flags->width = -1;
-	flags->minus = -1;
-	flags->zero = -1;
-}
 
 void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 {
@@ -33,13 +25,13 @@ void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 	else if (str[*i] == 'x')
 		ft_puthex(va_arg(args, unsigned int));
 	else if (str[*i] == 'X')
-		ft_putHex(va_arg(args, int));
+		ft_putuhex(va_arg(args, int));
 	else if (str[*i] == '%')
 		write(1, "%", 1);
 	*i = *i + 1;
 }
 
-static void	ft_minus_zero(char *str, int *i, t_flags *flags)
+void	ft_minus_zero(char *str, int *i, t_flags *flags)
 {
 	while (str[*i] == '0' || str[*i] == '-')
 	{
@@ -54,7 +46,17 @@ static void	ft_minus_zero(char *str, int *i, t_flags *flags)
 	}
 }
 
-static void	ft_numbers_and_precision(char *str, int *i, t_flags *flags, va_list args)
+void	ft_numbers(char *str, int *i, t_flags *flags, va_list args)
+{
+	if (str[*i] > '0' && str[*i] <= '9')
+	{
+		flags->width = ft_atoi(&str[*i]);
+		while (str[*i] >= '0' && str[*i] <= '9')
+			*i = *i + 1;
+	}
+}
+
+void	ft_check_precision(char *str, int *i, t_flags *flags, va_list args)
 {
 	if (str[*i] == '*')
 	{
@@ -66,12 +68,7 @@ static void	ft_numbers_and_precision(char *str, int *i, t_flags *flags, va_list 
 		}
 		*i = *i + 1;
 	}
-	if (str[*i] > '0' && str[*i] <= '9')
-	{
-		flags->width = ft_atoi(&str[*i]);
-		while (str[*i] >= '0' && str[*i] <= '9')
-			*i = *i + 1;
-	}
+	ft_numbers(str, i, flags, args);
 	if (str[*i] == '.')
 	{
 		flags->precision = 0;
@@ -90,11 +87,11 @@ static void	ft_numbers_and_precision(char *str, int *i, t_flags *flags, va_list 
 
 int		ft_printf(char *str, ...)
 {
-	va_list	args;
-	t_flags flags;
-	va_start(args, str);
-	int	i;
+	va_list		args;
+	int			i;
+	t_flags		flags;
 
+	va_start(args, str);
 	flags.count = 0;
 	i = 0;
 	while (str[i] != '\0')
@@ -104,7 +101,7 @@ int		ft_printf(char *str, ...)
 			i++;
 			ft_start_flags(&flags);
 			ft_minus_zero(str, &i, &flags);
-			ft_numbers_and_precision(str, &i, &flags, args);
+			ft_check_precision(str, &i, &flags, args);
 			ft_print_basic(str, &i, args, &flags);
 		}
 		else
@@ -116,12 +113,3 @@ int		ft_printf(char *str, ...)
 	va_end(args);
 	return (flags.count);
 }
-
-/*
-   int main()
-   {
-   printf("%10.5d\n", 10);
-   ft_printf("%10.5d", 10);
-   }
-   */
-

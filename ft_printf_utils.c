@@ -6,13 +6,13 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:07:17 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/02 00:58:15 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/02 15:46:51 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_puthex(unsigned n)
+void	ft_puthex(unsigned int n)
 {
 	char	c;
 
@@ -22,7 +22,7 @@ void	ft_puthex(unsigned n)
 		ft_puthex(n % 16);
 	}
 	else
-	{	
+	{
 		if (n > 9)
 			c = n + 87;
 		else
@@ -31,7 +31,7 @@ void	ft_puthex(unsigned n)
 	}
 }
 
-void	ft_putHex(unsigned int n)
+void	ft_putuhex(unsigned int n)
 {
 	char	c;
 
@@ -71,7 +71,7 @@ void	ft_putunbr(unsigned int n, t_flags *flags)
 {
 	char	tmp;
 
-	if(n > 9)
+	if (n > 9)
 		ft_putunbr(n / 10, flags);
 	tmp = n % 10 + '0';
 	flags->count += write(1, &tmp, 1);
@@ -95,4 +95,3 @@ void	ft_putstr(va_list args)
 		i++;
 	}
 }
-
