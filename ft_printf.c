@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/02 17:14:26 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/05 20:38:32 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 	else if (str[*i] == 'd' || str[*i] == 'i')
 		ft_print_d(va_arg(args, int), flags);
 	else if (str[*i] == 'u')
-		ft_putunbr(va_arg(args, unsigned int), flags);
+		ft_print_u(va_arg(args, unsigned int), flags);
 	else if (str[*i] == 'x')
-		ft_puthex(va_arg(args, unsigned int));
+		ft_print_x(va_arg(args, unsigned int), flags);
 	else if (str[*i] == 'X')
-		ft_putuhex(va_arg(args, int));
+		ft_print_ux(va_arg(args, unsigned int), flags);
 	else if (str[*i] == '%')
-		write(1, "%", 1);
+		ft_print_c('%', flags);
 	*i = *i + 1;
 }
 

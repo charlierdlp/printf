@@ -6,20 +6,20 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:07:17 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/02 15:46:51 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/05 20:52:11 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_puthex(unsigned int n)
+void	ft_puthex(unsigned int n, t_flags *flags)
 {
 	char	c;
 
 	if (n > 16)
 	{
-		ft_puthex(n / 16);
-		ft_puthex(n % 16);
+		ft_puthex(n / 16, flags);
+		ft_puthex(n % 16, flags);
 	}
 	else
 	{
@@ -27,18 +27,18 @@ void	ft_puthex(unsigned int n)
 			c = n + 87;
 		else
 			c = n + '0';
-		write(1, &c, 1);
+		flags->count += write(1, &c, 1);
 	}
 }
 
-void	ft_putuhex(unsigned int n)
+void	ft_putuhex(unsigned int n, t_flags *flags)
 {
 	char	c;
 
 	if (n > 16)
 	{
-		ft_puthex(n / 16);
-		ft_puthex(n % 16);
+		ft_putuhex(n / 16, flags);
+		ft_putuhex(n % 16, flags);
 	}
 	else
 	{
@@ -46,7 +46,7 @@ void	ft_putuhex(unsigned int n)
 			c = n + 55;
 		else
 			c = n + '0';
-		write(1, &c, 1);
+		flags->count += write(1, &c, 1);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 21:56:28 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/02 16:37:51 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/05 20:23:51 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ void	ft_neg_precision(int n, t_flags *flags, int len)
 	}
 }
 
-void	ft_precision(int n, t_flags *flags, int len)
+void	ft_precision(unsigned int n, t_flags *flags, int len)
 {
 	if (flags->width > 0 && flags->minus == -1)
 	{
 		if (flags->precision < len)
-			flags->count += ft_slots(flags->width - len, flags->zero);
+			flags->count += ft_slots(flags->width - len, -1);
 		else
-			flags->count += ft_slots(flags->width - flags->precision,
-					flags->zero);
+			flags->count += ft_slots(flags->width - flags->precision, -1);
 		flags->count += ft_slots(flags->precision - len, 1);
 		ft_putnbr(n, flags);
 	}
@@ -60,10 +59,9 @@ void	ft_precision(int n, t_flags *flags, int len)
 		flags->count += ft_slots(flags->precision - len, 1);
 		ft_putnbr(n, flags);
 		if (flags->precision < len)
-			flags->count += ft_slots(flags->width - len, flags->zero);
+			flags->count += ft_slots(flags->width - len, -1);
 		else
-			flags->count += ft_slots(flags->width - flags->precision,
-					flags->zero);
+			flags->count += ft_slots(flags->width - flags->precision, -1);
 	}
 	else
 	{
@@ -72,13 +70,10 @@ void	ft_precision(int n, t_flags *flags, int len)
 	}
 }
 
-void	ft_minus(int n, t_flags *flags, int len)
+void	ft_minus(unsigned int n, t_flags *flags, int len)
 {
-	if (flags->width > 0)
-	{
-		ft_putnbr(n, flags);
-		flags->count += ft_slots(flags->width - len, flags->zero);
-	}
+	ft_putnbr(n, flags);
+	flags->count += ft_slots(flags->width - len, flags->zero);
 }
 
 void	ft_print_d(int n, t_flags *flags)
