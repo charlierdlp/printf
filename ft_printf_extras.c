@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 05:20:30 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/05 20:54:21 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/06 19:52:44 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_count(int n)
 	return (count);
 }
 
-int		ft_count_x(unsigned int n)
+int		ft_count_x(unsigned long n)
 {
 	int	count;
 

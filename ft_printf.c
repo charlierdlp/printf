@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/05 20:38:32 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/06 20:26:51 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 {
+	if (flags->minus == 1)
+		flags->zero = -1;
 	if (str[*i] == 'c')
 		ft_print_c((char)va_arg(args, int), flags);
 	else if (str[*i] == 's')
@@ -28,6 +30,8 @@ void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 		ft_print_ux(va_arg(args, unsigned int), flags);
 	else if (str[*i] == '%')
 		ft_print_c('%', flags);
+	else if (str[*i] == 'p')
+		ft_print_p(va_arg(args, void *), flags);
 	*i = *i + 1;
 }
 
@@ -75,7 +79,10 @@ void	ft_check_precision(char *str, int *i, t_flags *flags, va_list args)
 		flags->zero = -1;
 		*i = *i + 1;
 		if (str[*i] == '*')
+		{
 			flags->precision = va_arg(args, int);
+			*i = *i + 1;
+		}
 		else
 		{
 			flags->precision = ft_atoi(&str[*i]);

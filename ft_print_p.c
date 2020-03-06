@@ -1,65 +1,65 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_x.c                                       :+:      :+:    :+:   */
+/*   ft_print_p.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/02 17:24:32 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/06 18:29:53 by cruiz-de         ###   ########.fr       */
+/*   Created: 2020/03/05 21:27:57 by cruiz-de          #+#    #+#             */
+/*   Updated: 2020/03/06 21:06:25 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_precixion(unsigned int n, t_flags *flags, int len)
+void	ft_precision_p(unsigned long n, t_flags *flags, int len)
 {
 	if (flags->width > 0 && flags->minus == -1)
 	{
 		if (flags->precision < len)
-			flags->count += ft_slots(flags->width - len, -1);
+			flags->count += ft_slots(flags->width - len - 2, -1);
 		else
-			flags->count += ft_slots(flags->width - flags->precision, -1);
+			flags->count += ft_slots(flags->width - flags->precision - 2, -1);
+		flags->count += write(1, "0x", 2);
 		flags->count += ft_slots(flags->precision - len, 1);
 		ft_puthex(n, flags);
 	}
 	else if (flags->width > 0 && flags->minus == 1)
 	{
+		flags->count += write(1, "0x", 2);
 		flags->count += ft_slots(flags->precision - len, 1);
 		ft_puthex(n, flags);
-		if (flags->precision < len)
-			flags->count += ft_slots(flags->width - len, -1);
+		if (flags->precision < len - 2)
+			flags->count += ft_slots(flags->width - len - 2, -1);
 		else
-			flags->count += ft_slots(flags->width - flags->precision, -1);
+			flags->count += ft_slots(flags->width - flags->precision - 2, -1);
 	}
 	else
 	{
+		flags->count += write(1, "0x", 2);
 		flags->count += ft_slots(flags->precision - len, 1);
 		ft_puthex(n, flags);
 	}
 }
 
-void	ft_minux(unsigned int n, t_flags *flags, int len)
+void	ft_print_p(unsigned long address, t_flags *flags)
 {
-	ft_puthex(n, flags);
-	flags->count += ft_slots(flags->width - len, flags->zero);
-}
+	int				len;
 
-void	ft_print_x(unsigned int n, t_flags *flags)
-{
-	int	len;
-
-	len = ft_count_x(n);
+	len = ft_count_x(address);
 	if (flags->precision == 0)
 	{
-		flags->count += ft_slots(flags->width, flags->zero);
+		if (flags->width != -1)
+			flags->count += ft_slots(flags->width - 2, -1);
+		flags->count += write(1, "0x", 2);
 		return ;
 	}
 	if (flags->precision != -1)
-		return (ft_precixion(n, flags, len));
-	if (flags->width > 0 && flags->minus == 1)
-		return (ft_minux(n, flags, len));
+		return (ft_precision_p(address, flags, len));
 	if (flags->width > 0 && flags->minus == -1)
-		flags->count += ft_slots(flags->width - len, flags->zero);
-	ft_puthex(n, flags);
+		flags->count += ft_slots(flags->width - len - 2, -1);
+	flags->count += write(1, "0x", 2);
+	ft_puthex(address, flags);
+	if (flags->width > 0 && flags->minus == 1)
+		flags->count += ft_slots(flags->width - len - 2, -1);
 }
