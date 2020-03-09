@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cruiz-de <cruiz-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/06 20:26:51 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/09 20:56:22 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 	else if (str[*i] == '%')
 		ft_print_c('%', flags);
 	else if (str[*i] == 'p')
-		ft_print_p(va_arg(args, void *), flags);
+		ft_print_p(va_arg(args, unsigned long), flags);
+	else
+		flags->count += ft_slots(flags->width, flags->zero);
 	*i = *i + 1;
 }
 
@@ -56,7 +58,9 @@ void	ft_numbers(char *str, int *i, t_flags *flags, va_list args)
 	{
 		flags->width = ft_atoi(&str[*i]);
 		while (str[*i] >= '0' && str[*i] <= '9')
+		{
 			*i = *i + 1;
+		}
 	}
 }
 
@@ -110,6 +114,7 @@ int		ft_printf(char *str, ...)
 			ft_minus_zero(str, &i, &flags);
 			ft_check_precision(str, &i, &flags, args);
 			ft_print_basic(str, &i, args, &flags);
+
 		}
 		else
 		{
