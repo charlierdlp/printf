@@ -6,7 +6,7 @@
 /*   By: cruiz-de <cruiz-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/10 20:20:33 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/10 21:03:42 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_check_precision(char *str, int *i, t_flags *flags, va_list args)
 		flags->width = (flags->width < 0) ? -flags->width : flags->width;
 		*i = *i + 1;
 	}
-	ft_numbers(str, i, flags, 1);
+	ft_numbers(str, i, flags, args);
 	if (str[*i] == '.')
 	{
 		flags->zero = -1;
