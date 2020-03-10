@@ -6,7 +6,7 @@
 /*   By: cruiz-de <cruiz-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/10 16:27:35 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/10 20:20:33 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,13 @@ void	ft_check_precision(char *str, int *i, t_flags *flags, va_list args)
 	if (str[*i] == '*')
 	{
 		flags->width = va_arg(args, int);
-		if (flags->width < 0)
-		{
-			flags->minus = 1;
-			flags->width = -flags->width;
-		}
+		flags->minus = (flags->width < 0) ? 1 : flags->minus;
+		flags->width = (flags->width < 0) ? -flags->width : flags->width;
 		*i = *i + 1;
 	}
-	ft_numbers(str, i, flags, args);
+	ft_numbers(str, i, flags, 1);
 	if (str[*i] == '.')
 	{
-		flags->precision = 0;
 		flags->zero = -1;
 		*i = *i + 1;
 		if (str[*i] == '*')
@@ -87,7 +83,11 @@ void	ft_check_precision(char *str, int *i, t_flags *flags, va_list args)
 			*i = *i + 1;
 		}
 		else
-			ft_numbers(str, i, flags, args);
+		{
+			flags->precision = ft_atoi(&str[*i]);
+			while (str[*i] >= '0' && str[*i] <= '9')
+				*i = *i + 1;
+		}
 	}
 }
 
