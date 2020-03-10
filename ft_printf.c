@@ -6,7 +6,7 @@
 /*   By: cruiz-de <cruiz-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:38:01 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/09 20:56:22 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:27:35 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	ft_print_basic(const char *str, int *i, va_list args, t_flags *flags)
 		ft_print_p(va_arg(args, unsigned long), flags);
 	else
 		flags->count += ft_slots(flags->width, flags->zero);
-	*i = *i + 1;
+	if (str[*i] != '\0')
+		*i = *i + 1;
 }
 
 void	ft_minus_zero(char *str, int *i, t_flags *flags)
@@ -58,9 +59,7 @@ void	ft_numbers(char *str, int *i, t_flags *flags, va_list args)
 	{
 		flags->width = ft_atoi(&str[*i]);
 		while (str[*i] >= '0' && str[*i] <= '9')
-		{
 			*i = *i + 1;
-		}
 	}
 }
 
@@ -88,11 +87,7 @@ void	ft_check_precision(char *str, int *i, t_flags *flags, va_list args)
 			*i = *i + 1;
 		}
 		else
-		{
-			flags->precision = ft_atoi(&str[*i]);
-			while (str[*i] >= '0' && str[*i] <= '9')
-				*i = *i + 1;
-		}
+			ft_numbers(str, i, flags, args);
 	}
 }
 
@@ -114,7 +109,6 @@ int		ft_printf(char *str, ...)
 			ft_minus_zero(str, &i, &flags);
 			ft_check_precision(str, &i, &flags, args);
 			ft_print_basic(str, &i, args, &flags);
-
 		}
 		else
 		{
