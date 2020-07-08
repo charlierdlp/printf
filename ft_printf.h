@@ -6,7 +6,7 @@
 /*   By: cruiz-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:09:51 by cruiz-de          #+#    #+#             */
-/*   Updated: 2020/03/06 19:53:26 by cruiz-de         ###   ########.fr       */
+/*   Updated: 2020/07/07 11:04:03 by cruiz-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_flags
 	int			count;
 }				t_flags;
 
+int				ft_printf(const char *str, ...);
 void			ft_start_flags(t_flags *flags);
 void			ft_print_d(int n, t_flags *flags);
 void			ft_print_s(va_list args, t_flags *flags);
